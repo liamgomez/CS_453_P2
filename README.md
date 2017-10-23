@@ -1,26 +1,29 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+Started from Ionics tab template created using ```ionic start CS_453_P2 tabs```
 
-## How to use this template
-
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
-
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
-
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+## Install :
 
 ```bash
 $ sudo npm install -g ionic cordova
-$ ionic start myTabs tabs
+$ cd CS_453_P2
+$ npm install
+# to run as a webapp uncomment CS_453_P2/src/pages/home/home.ts:24
+# and comment out CS_453_P2/src/pages/home/home.ts:25
+# need to do this because of CORS proxy issues, after this is done run.
+ionic serve
 ```
-
-Then, to run it, cd into `myTabs` and run:
-
+### Android specific
+Need to have SDK tools in path, etc. See ionic docs.
 ```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
+# to run as android uncomment CS_453_P2/src/pages/home/home.ts:25
+# and comment out CS_453_P2/src/pages/home/home.ts:24
+# to emulate on android 
+ionic cordova emulate
+# to build .apk production
+ionic cordova compile
 ```
+### Todo
+- remove tabs and unused pages
+- support search type input (currently defaulted to type=food)
+- support keyword search (see api docs)
 
-Substitute ios for android if not on a Mac.
 
