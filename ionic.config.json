@@ -1,5 +1,14 @@
 {
   "name": "CS_453_P2",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/maps",
+      "proxyUrl": "https://maps.googleapis.com/maps"
+    }
+  ]
 }
