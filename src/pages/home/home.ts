@@ -1,4 +1,4 @@
-import * as data from './supported_types.json';
+import { types } from './types';
 import axios  from 'axios';
 import qs from 'qs';
 import { Component } from '@angular/core';
@@ -22,13 +22,14 @@ export class HomePage {
   radius:number = 5000;
   lat: number;
   long: number;
-  supported_types: string[] = data.types;
+  supported_types: string[] = types;
   selected_type: string = 'food';
+  loading: boolean = false;
 
   // TODO: pretty sure this will break in prod, proxy needs to be removed or something.
   // see ionic.config.json
-  apiUrl: string = '/maps/api/place/nearbysearch/json';
-  //apiUrl: string = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+  //apiUrl: string = '/maps/api/place/nearbysearch/json';
+  apiUrl: string = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
 
   apiKey: string = 'AIzaSyDutCaHzOGayx9YnXXKiwPW5eQjBZntAdM';
 
@@ -36,6 +37,8 @@ export class HomePage {
   getItems(ev: any) {
     // Reset items back to all of the items
     this.items = [];
+
+    this.loading = true;
 
     this.geolocation.getCurrentPosition()
       .then(pos => {
@@ -51,25 +54,24 @@ export class HomePage {
           location: location,
           radius: this.radius,
           type: this.selected_type,
-          key: this.apiKey
+          key: this.apiKey,
+          keyword: this.searchQuery
         };
-
-        // keyword is not required
-        if (this.searchQuery) {
-          data.keyword = this.searchQuery;
-        }
 
         let query =  this.apiUrl + '?' + qs.stringify(data);
         axios.get(query)
           .then((response) => {
+            this.loading = false;
             console.log(response.data.results);
             this.items = response.data.results;
           })
           .catch((error) => {
+            this.loading = false;
             console.log(error);
           });
       })
       .catch((error) => {
+        this.loading = false;
         this.showToast('Could not get current location : ' + error.message, 'bottom');
         console.log(error);
       });

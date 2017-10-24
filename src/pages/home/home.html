@@ -42,13 +42,27 @@
   <button ion-button full (click)="getItems($event)">Search Places</button>
  </ion-card-content>
 </ion-card>
+
+<ion-card>
+
+  <ion-card-header>
+    Results
+  </ion-card-header>
+  <ion-card-content>
   <ion-list>
-      <ion-list-header>Results</ion-list-header>
       <button ion-item *ngFor="let item of items; let i = index" (click)="itemSelected(item)">
         <ion-avatar item-start>
           <img src="{{item.icon}}">
         </ion-avatar>
         {{ item.name }} , {{item.geometry.location.lat}}, {{item.geometry.location.lng}}, {{ i }}
       </button>
+      <ion-item *ngIf="loading">
+        Loading...
+      </ion-item>
+      <ion-item *ngIf="items && items.length > 0">
+        Loading...
+      </ion-item>
   </ion-list>
+  </ion-card-content>
+</ion-card>
 </ion-content>
